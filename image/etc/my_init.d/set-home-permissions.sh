@@ -13,3 +13,6 @@ fi
 # This helps avoiding issues wiht mounted volumes.
 source /etc/container_environment.sh
 find $DOCKER_HOME -type d -maxdepth 1 | sed "1d" | xargs chown $DOCKER_USER:$DOCKER_GROUP 2> /dev/null || true
+
+# It is important for $HOME/.ssh to have correct ownership
+chown -R $DOCKER_USER $DOCKER_HOME/.ssh

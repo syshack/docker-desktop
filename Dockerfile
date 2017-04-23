@@ -13,9 +13,7 @@ LABEL maintainer Xiangmin Jiao <xmjiao@gmail.com>
 WORKDIR /tmp
 
 # Install some required system tools and packages for X Windows
-# We install firefox and make --no-remote to be default
 RUN apt-get update && \
-    apt-get upgrade -y -o Dpkg::Options::="--force-confold" && \
     apt-get install -y --no-install-recommends \
         man \
         sudo \
@@ -42,15 +40,18 @@ RUN apt-get update && \
         firefox \
 	xpdf && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-    
+
 # Install websokify and noVNC
 RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
     python2 get-pip.py && \
-    pip2 install --no-cache-dir setuptools && \
+    pip2 install --no-cache-dir \
+        setuptools \
+        requests \
+        PyDrive && \
     pip2 install -U https://github.com/novnc/websockify/archive/master.tar.gz && \
     mkdir /usr/local/noVNC && \
-    curl -s -L https://github.com/novnc/noVNC/archive/stable/v0.6.tar.gz | \
-         tar zx -C /usr/local/noVNC --strip-components 1 && \
+    curl -s -L https://github.com/x11vnc/noVNC/archive/master.zip | \
+         bsdtar zx -C /usr/local/noVNC --strip-components 1 && \
     rm -rf /tmp/* /var/tmp/*
 
 ########################################################
@@ -65,13 +66,13 @@ ENV LC_ALL en_US.UTF-8
 
 # Change the default timezone to America/New_York
 # Disable forward logging (https://github.com/phusion/baseimage-docker/issues/186)
-# Run ldconfig so that /usr/local/lib etc. are in the default 
+# Run ldconfig so that /usr/local/lib etc. are in the default
 # search path for dynamic linker
 RUN echo "America/New_York" > /etc/timezone && \
     ln -s -f /usr/share/zoneinfo/America/New_York /etc/localtime && \
     touch /etc/service/syslog-forwarder/down && \
     ldconfig
-    
+
 # Set up user so that we do not run as root
 ENV DOCKER_USER=x11vnc
 ENV DOCKER_GROUP=$DOCKER_USER \

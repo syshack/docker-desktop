@@ -7,7 +7,7 @@
 # Authors:
 # Xiangmin Jiao <xmjiao@gmail.com>
 
-FROM phusion/baseimage:0.9.18
+FROM x11vnc/baseimage:0.9.18
 LABEL maintainer Xiangmin Jiao <xmjiao@gmail.com>
 
 WORKDIR /tmp
@@ -19,7 +19,6 @@ RUN apt-get update && \
         sudo \
         net-tools \
         xdotool \
-        bsdtar \
         \
         openssh-server \
         g++ \
@@ -39,7 +38,7 @@ RUN apt-get update && \
         dbus-x11 \
         \
         firefox \
-	xpdf && \
+	      xpdf && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install websokify and noVNC
@@ -51,8 +50,8 @@ RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
         PyDrive && \
     pip2 install -U https://github.com/novnc/websockify/archive/master.tar.gz && \
     mkdir /usr/local/noVNC && \
-    curl -s -L https://github.com/x11vnc/noVNC/archive/master.zip | \
-         bsdtar zxf - -C /usr/local/noVNC --strip-components 1 && \
+    curl -s -L https://github.com/novnc/noVNC/archive/stable/v0.6.tar.gz | \
+         tar zx -C /usr/local/noVNC --strip-components 1 && \
     rm -rf /tmp/* /var/tmp/*
 
 ########################################################

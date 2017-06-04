@@ -65,7 +65,7 @@ ENV LANG=en_US.UTF-8 \
     LANGUAGE=en_US:en \
     LC_ALL=en_US.UTF-8
 
-ENV DOCKER_USER=x11vnc \
+ENV DOCKER_USER=ubuntu \
     DOCKER_SHELL=/usr/bin/zsh
 
 ENV DOCKER_GROUP=$DOCKER_USER \
@@ -87,8 +87,7 @@ RUN useradd -m -s $DOCKER_SHELL -G sudo,docker_env $DOCKER_USER && \
 ADD image /
 ADD conf/ $DOCKER_HOME/.config
 
-RUN sed -i "s/x11vnc/$DOCKER_USER/" $DOCKER_HOME/.config/pcmanfm/LXDE/desktop-items-0.conf && \
-    touch $DOCKER_HOME/.sudo_as_admin_successful && \
+RUN touch $DOCKER_HOME/.sudo_as_admin_successful && \
     mkdir -p $DOCKER_HOME/shared && \
     mkdir -p $DOCKER_HOME/.vnc && \
     mkdir -p $DOCKER_HOME/.ssh && \
@@ -100,5 +99,5 @@ RUN sed -i "s/x11vnc/$DOCKER_USER/" $DOCKER_HOME/.config/pcmanfm/LXDE/desktop-it
 WORKDIR $DOCKER_HOME
 
 USER root
-ENTRYPOINT ["/sbin/my_init","--quiet","--","/sbin/setuser","x11vnc","/bin/bash","-l","-c"]
+ENTRYPOINT ["/sbin/my_init","--quiet","--","/sbin/setuser","ubuntu","/bin/bash","-l","-c"]
 CMD ["$DOCKER_SHELL","-l","-i"]

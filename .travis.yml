@@ -10,5 +10,5 @@ script:
   - git clone https://github.com/x11vnc/ubuntu-docker.git master &&
     git clone -b $BRANCH https://github.com/x11vnc/ubuntu-docker.git daily &&
     docker build --tag x11vnc/ubuntu-desktop:daily daily &&
-    master/ubuntu-desktop.py -d -n -t daily && docker stop $(docker ps -q)
+    master/ubuntu_desktop.py -d -n -t daily && docker stop $(docker ps -q)
   - docker images

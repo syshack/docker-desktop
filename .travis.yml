@@ -1,42 +1,14 @@
-os: linux
-dist: trusty
-sudo: required
 language: python
+services: docker
 
 env:
-  - REPOSITORY=x11vnc/smartgit-desktop BRANCH=master PROJECT=
-  - REPOSITORY=compdatasci/atom-desktop BRANCH=master PROJECT=
-  - REPOSITORY=compdatasci/octave-desktop BRANCH=master PROJECT=', \$HOME\/project`, '
-  - REPOSITORY=compdatasci/spyder-desktop BRANCH=master PROJECT=', \$HOME\/project`, '
-  - REPOSITORY=compdatasci/rstudio-desktop BRANCH=master PROJECT=', \$HOME\/project`, '
-  - REPOSITORY=compdatasci/ams595-desktop BRANCH=master PROJECT=', \$HOME\/project`, '
-  - REPOSITORY=compdatasci/ams562-desktop BRANCH=master PROJECT=', \$HOME\/project`, '
-  - REPOSITORY=fastsolve/docker-desktop BRANCH=master PROJECT=', \$HOME\/fastsolve`, '
-  - REPOSITORY=numgeom/docker-desktop BRANCH=master PROJECT=', \$HOME\/numgeom`, '
-  - REPOSITORY=unifem/docker-desktop BRANCH=master PROJECT=', `\$HOME\/unifem`, '
-
-before_script:
-  - git config --global user.email "xmjiao@gmail.com"
-  - git config --global user.name "Xiangmin Jiao"
+  - BRANCH=master
+  - BRANCH=14.04
+  - BRANCH=zh_cn
 
 script:
-  # Update README by inserting new section for full-screen mode
-  - "git clone -b $BRANCH https://$GIT_USER:$GIT_TOKEN@github.com/$REPOSITORY childrepo 2> /dev/null &&
-    cd childrepo"
-  - "perl -0777 -e 's/## Entering Full-Screen Mode\n(.+?)(\n## Tips )/%%FULL_SCREEN_SECTION%%$2/igs' -p README.md |
-    sed -e '/%%FULL_SCREEN_SECTION%%/ {' -e 'r ../doc/fullscreen.md' -e 'd' -e '}' > README.new &&
-    (diff README.md README.new || cp README.new README.md)"
-  - "perl -0777 -e 's/## Preparation\n(.+?)(\n## )/%%PREPARATION_SECTION%%$2/igs' -p README.md |
-    sed -e '/%%PREPARATION_SECTION%%/ {' -e 'r ../doc/preparation.md' -e 'd' -e '}' > README.new &&
-    (diff README.md README.new || cp README.new README.md)"
-  - sed -e "s/%%PROJECT%%/$PROJECT/" -i ../doc/tips.md
-  - "perl -0777 -e 's/## Tips and Tricks\n(.+?)(\n## )/%%TIPSANDTRICKS_SECTION%%$2/igs' -p README.md |
-     sed -e '/%%TIPSANDTRICKS_SECTION%%/ {' -e 'r ../doc/tips.md' -e 'd' -e '}' > README.new &&
-     (diff README.md README.new || cp README.new README.md)"
-  - "[[ -z $(cat README.md | tr '\n' '\r' | egrep -e '## Tips and Tricks\r.+(\r##)') ]] &&
-     (perl -0777 -e 's/## Tips and Tricks\n.+$/%%TIPSANDTRICKS_SECTION%%/igs' -p README.md |
-      sed -e '/%%TIPSANDTRICKS_SECTION%%/ {' -e 'r ../doc/tips.md' -e 'd' -e '}' > README.new &&
-      (diff README.md README.new || cp README.new README.md))"
-  - "([[ -z $(git diff -- README.md) ]] ||
-      (git commit -m 'Updated README' README.md &&
-      git push))"
+  - git clone https://github.com/x11vnc/ubuntu-docker.git master &&
+    git clone -b $BRANCH https://github.com/x11vnc/ubuntu-docker.git daily &&
+    docker build --tag x11vnc/ubuntu-desktop:daily daily &&
+    master/ubuntu-desktop.py -d -n -t daily && docker stop $(docker ps -q)
+  - docker images

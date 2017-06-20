@@ -23,7 +23,7 @@ app.configure(bg='light grey')
 tk.Label(app, text="", height=3, bg='light grey').pack()
 tk.Label(app, text="Are you sure you want to quit all\n" +
          "applications and log out now?", bg='light grey',
-          font=("Sans-serif", 12, "bold"), height=3, width=100).pack()
+         font=("Sans-serif", 12, "bold"), height=3, width=100).pack()
 
 tk.Label(app, text="Make sure you have saved all your data into a\n" +
          "shared or mounted folder before logging out.", bg='light grey',

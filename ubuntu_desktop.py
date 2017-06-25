@@ -59,12 +59,12 @@ def parse_args(description):
                         'the current screen size.',
                         default="")
 
-    parser.add_argument('-a', '--audio',
+    parser.add_argument('-A', '--audio',
                         help='Mount the sound device ' +
                         '(Linux only, experimental, sudo required).',
                         default="")
 
-    parser.add_argument('-v', '--nvidia',
+    parser.add_argument('-V', '--nvidia',
                         help='Mount the Nvidia card for GPU computatio. ' +
                         '(Linux only, experimental, sudo required).',
                         default="")

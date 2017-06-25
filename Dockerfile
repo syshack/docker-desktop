@@ -22,6 +22,7 @@ WORKDIR /tmp
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Install some required system tools and packages for X Windows
+# http://www.webupd8.org/2014/05/install-fresh-player-plugin-in-ubuntu.html
 RUN locale-gen $LANG && \
     dpkg-reconfigure -f noninteractive locales && \
     apt-get update && \
@@ -54,6 +55,7 @@ RUN locale-gen $LANG && \
         dbus-x11 \
         \
         firefox \
+        browser-plugin-freshplayer-pepperflash \
         xpdf && \
     ln -s -f /usr/bin/lxterminal /usr/bin/xterm && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

@@ -4,7 +4,7 @@ services: docker
 env:
   - BRANCH=master
   - BRANCH=14.04
-  - BRANCH=zh_cn
+  - BRANCH=zh_CN
 
 script:
   - git clone https://github.com/x11vnc/ubuntu-docker.git master &&

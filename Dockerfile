@@ -22,7 +22,6 @@ WORKDIR /tmp
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Install some required system tools and packages for X Windows
-# http://www.webupd8.org/2014/05/install-fresh-player-plugin-in-ubuntu.html
 RUN locale-gen $LANG && \
     dpkg-reconfigure -f noninteractive locales && \
     apt-get update && \
@@ -54,8 +53,7 @@ RUN locale-gen $LANG && \
         x11vnc \
         dbus-x11 \
         \
-        firefox \
-        browser-plugin-freshplayer-pepperflash \
+        chromium-browser \
         xpdf && \
     ln -s -f /usr/bin/lxterminal /usr/bin/xterm && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -104,9 +102,6 @@ RUN touch $DOCKER_HOME/.sudo_as_admin_successful && \
     mkdir -p $DOCKER_HOME/.log && touch $DOCKER_HOME/.log/vnc.log && \
     ln -s -f .config/zsh/zshrc /home/$DOCKER_USER/.zshrc && \
     ln -s -f .config/zsh/zprofile /home/$DOCKER_USER/.zprofile && \
-    ln -s -f .config/mozilla $HOME/.mozilla && \
-    echo "[ -d $HOME/.config/mozilla ] || mkdir -p $HOME/.config/mozilla" \
-        >> $DOCKER_HOME/.profile && \
     echo "[ ! -f $HOME/WELCOME ] || cat $HOME/WELCOME" \
         >> $DOCKER_HOME/.profile && \
     mkdir -p $DOCKER_HOME/.config/git && \

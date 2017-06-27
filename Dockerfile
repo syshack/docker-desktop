@@ -53,8 +53,7 @@ RUN locale-gen $LANG && \
         x11vnc \
         dbus-x11 \
         \
-        midori \
-        xpdf && \
+        midori && \
     ln -s -f /usr/bin/lxterminal /usr/bin/xterm && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 

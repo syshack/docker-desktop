@@ -22,6 +22,10 @@ WORKDIR /tmp
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Install some required system tools and packages for X Windows
+# Potential options for audio:
+# pulseaudio
+# gnome-alsamixer
+# jackd qjackctl
 RUN locale-gen $LANG && \
     dpkg-reconfigure -f noninteractive locales && \
     apt-get update && \
@@ -55,6 +59,7 @@ RUN locale-gen $LANG && \
         \
         chromium-browser \
         pulseaudio \
+        gnome-alsamixer \
         xpdf && \
     ln -s -f /usr/bin/lxterminal /usr/bin/xterm && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

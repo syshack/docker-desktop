@@ -54,6 +54,7 @@ RUN locale-gen $LANG && \
         dbus-x11 \
         \
         chromium-browser \
+        pulseaudio \
         xpdf && \
     ln -s -f /usr/bin/lxterminal /usr/bin/xterm && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

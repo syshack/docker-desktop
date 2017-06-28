@@ -106,8 +106,8 @@ RUN touch $DOCKER_HOME/.sudo_as_admin_successful && \
     ln -s -f .config/mozilla $HOME/.mozilla && \
     echo "[ -d $HOME/.config/mozilla ] || mkdir -p $HOME/.config/mozilla" \
         >> $DOCKER_HOME/.profile && \
-    echo "[ ! -f $HOME/WELCOME ] || cat $HOME/WELCOME" \
-        >> $DOCKER_HOME/.profile && \
+        echo "[ ! -f $HOME/WELCOME -o -z \"\$DISPLAY\" ] || cat $HOME/WELCOME" \
+            >> $DOCKER_HOME/.profile && \
     mkdir -p $DOCKER_HOME/.config/git && \
     touch -d '50 years ago' $DOCKER_HOME/.config/git/config && \
     ln -s -f .config/git/config /home/$DOCKER_USER/.gitconfig && \
@@ -116,5 +116,5 @@ RUN touch $DOCKER_HOME/.sudo_as_admin_successful && \
 WORKDIR $DOCKER_HOME
 
 USER root
-ENTRYPOINT ["/sbin/my_init","--quiet","--","/sbin/setuser","ubuntu","/bin/bash","-l","-c"]
+ENTRYPOINT ["/sbin/my_init","--quiet","--","/sbin/setuser","ubuntu","/bin/bash","-c"]
 CMD ["$DOCKER_SHELL","-l","-i"]

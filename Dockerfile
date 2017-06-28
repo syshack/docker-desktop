@@ -52,6 +52,8 @@ RUN locale-gen $LANG && \
         libgl1-mesa-dri \
         x11vnc \
         dbus-x11 \
+        alsa-base \
+        pulseaudio \
         \
         chromium-browser \
         xpdf && \
@@ -102,7 +104,7 @@ RUN touch $DOCKER_HOME/.sudo_as_admin_successful && \
     mkdir -p $DOCKER_HOME/.log && touch $DOCKER_HOME/.log/vnc.log && \
     ln -s -f .config/zsh/zshrc /home/$DOCKER_USER/.zshrc && \
     ln -s -f .config/zsh/zprofile /home/$DOCKER_USER/.zprofile && \
-    echo "[ ! -f $HOME/WELCOME ] || cat $HOME/WELCOME" \
+    echo "[ ! -f $HOME/WELCOME -o -z \"\$DISPLAY\" ] || cat $HOME/WELCOME" \
         >> $DOCKER_HOME/.profile && \
     mkdir -p $DOCKER_HOME/.config/git && \
     touch -d '50 years ago' $DOCKER_HOME/.config/git/config && \
@@ -112,5 +114,5 @@ RUN touch $DOCKER_HOME/.sudo_as_admin_successful && \
 WORKDIR $DOCKER_HOME
 
 USER root
-ENTRYPOINT ["/sbin/my_init","--quiet","--","/sbin/setuser","ubuntu","/bin/bash","-l","-c"]
+ENTRYPOINT ["/sbin/my_init","--quiet","--","/sbin/setuser","ubuntu","/bin/bash","-c"]
 CMD ["$DOCKER_SHELL","-l","-i"]

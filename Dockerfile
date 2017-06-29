@@ -55,9 +55,10 @@ RUN locale-gen $LANG && \
         dbus-x11 \
         alsa-base \
         pulseaudio \
+        gdebi \
         \
-        chromium-browser \
         xpdf && \
+    gdebi google-chrome-stable_current_amd64.deb && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install websokify and noVNC

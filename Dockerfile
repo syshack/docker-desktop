@@ -24,6 +24,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 # Install some required system tools and packages for X Windows
 RUN locale-gen $LANG && \
     dpkg-reconfigure -f noninteractive locales && \
+    curl -q https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - && \
+    sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list' && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
         man \
@@ -55,10 +57,9 @@ RUN locale-gen $LANG && \
         dbus-x11 \
         alsa-base \
         pulseaudio \
-        gdebi \
         \
+        google-chrome-stable \
         xpdf && \
-    gdebi google-chrome-stable_current_amd64.deb && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install websokify and noVNC

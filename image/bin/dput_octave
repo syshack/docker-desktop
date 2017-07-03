@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cd $HOME/project/
+
+# TODO Get correct name for octave_4.2.1.changes
+dput ppa:compdatasci/octave octave_4.2.1.changes

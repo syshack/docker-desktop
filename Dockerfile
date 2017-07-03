@@ -27,7 +27,7 @@ USER $DOCKER_USER
 RUN mkdir $DOCKER_HOME/project && \
     cd $DOCKER_HOME/project && \
     curl -O -L https://launchpad.net/ubuntu/+archive/primary/+files/octave_4.2.1.orig.tar.gz && \
-    git clone --depth 1 https://GIT_USER:GIT_TOKEN@github.com/xmjiao/octave-debian.git && \
+    git clone --depth 1 https://github.com/xmjiao/octave-debian.git && \
     cd octave-debian && \
     git remote add upstream https://anonscm.debian.org/git/pkg-octave/octave.git && \
     git pull upstream/master

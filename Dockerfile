@@ -30,7 +30,7 @@ RUN mkdir $DOCKER_HOME/project && \
     git clone --depth 1 https://github.com/xmjiao/octave-debian.git && \
     cd octave-debian && \
     git remote add upstream https://anonscm.debian.org/git/pkg-octave/octave.git && \
-    git pull upstream/master
+    git pull upstream master
 
 USER root
 WORKDIR $DOCKER_HOME

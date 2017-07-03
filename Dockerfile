@@ -8,6 +8,7 @@ LABEL maintainer Xiangmin Jiao <xmjiao@gmail.com>
 
 USER root
 WORKDIR /tmp
+ADD image/bin $DOCKER_HOME/bin
 
 # Install some required system tools and packages for X Windows
 RUN add-apt-repository ppa:webupd8team/atom && \
@@ -18,6 +19,15 @@ RUN add-apt-repository ppa:webupd8team/atom && \
         javahelper \
         meld \
         atom && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+    chmod -R $DOCKER_USER:$DOCKER_USER $DOCKER_HOME
 
+USER $DOCKER_USER
+
+RUN mkdir $DOCKER_HOME/project && \
+    cd $DOCKER_HOME/project && \
+    curl -O -L https://launchpad.net/ubuntu/+archive/primary/+files/octave_4.2.1.orig.tar.gz && \
+    git clone --depth 1 https://GIT_USER:GIT_TOKEN@github.com/xmjiao/octave-debian.git
+
+USER root
 WORKDIR $DOCKER_HOME

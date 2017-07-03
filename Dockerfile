@@ -20,7 +20,7 @@ RUN add-apt-repository ppa:webupd8team/atom && \
         meld \
         atom && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
-    chmod -R $DOCKER_USER:$DOCKER_USER $DOCKER_HOME
+    chown -R $DOCKER_USER:$DOCKER_USER $DOCKER_HOME
 
 USER $DOCKER_USER
 

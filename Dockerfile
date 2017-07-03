@@ -15,6 +15,7 @@ RUN add-apt-repository ppa:webupd8team/atom && \
     apt-get install -y --no-install-recommends \
         dput \
         devscripts \
+        javahelper \
         meld \
         atom && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

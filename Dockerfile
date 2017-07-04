@@ -14,7 +14,9 @@ ADD image/bin $DOCKER_HOME/bin
 RUN add-apt-repository ppa:webupd8team/atom && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
+        gnupg-agent \
         dput \
+        fakeroot \
         devscripts \
         javahelper \
         meld \

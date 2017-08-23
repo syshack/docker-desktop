@@ -1,4 +1,4 @@
 #!/bin/bash
 
 cd $HOME/project/
-dput ppa:compdatasci/qupzilla qupzilla_2.1.2_source.changes
+dput ppa:compdatasci/qupzilla qupzilla_2.1.2~ubuntu16.04_source.changes

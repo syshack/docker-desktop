@@ -38,7 +38,7 @@ USER $DOCKER_USER
 
 RUN mkdir $DOCKER_HOME/project && \
     cd $DOCKER_HOME/project && \
-    curl -L https://launchpad.net/ubuntu/+archive/primary/+files/qupzilla_2.1.2~dfsg1.orig.tar.xz -o qupzilla_2.1.2.orig.tar.xz && \
+    curl -L https://launchpad.net/ubuntu/+archive/primary/+files/qupzilla_2.1.2~dfsg1.orig.tar.xz -o qupzilla_2.1.2~ubuntu16.04.orig.tar.xz && \
     git clone --depth 1 git@github.com:xmjiao/qupzilla-debian.git && \
     cd qupzilla-debian && \
     DEB_FFLAGS_SET="-O2" DEB_CFLAGS_SET="-O2" DEB_CXXFLAGS_SET="-O2" \

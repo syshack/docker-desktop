@@ -1,4 +1,4 @@
 #!/bin/bash
 
-cd $HOME/project/octave-debian
+cd $HOME/project/qupzilla-debian
 debuild -S -sa -rfakeroot -k06CD9C08
